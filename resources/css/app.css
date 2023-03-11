@@ -6,6 +6,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/** base */
+
+h1{
+    @apply text-4xl mb-3
+}
+
+/******************************** base */
+
 /** basic table */
 .table{
     @apply table-auto w-full
@@ -24,3 +32,51 @@
 }
 
 /********************** basic table */
+
+/** form */
+
+.form-control{
+    @apply block rounded-sm shadow-sm bg-purple-50 w-full
+}
+
+label{
+    @apply  mt-2 block
+}
+
+/***************************** form */
+
+/** btn */
+
+.btn{
+    @apply border rounded px-3 py-2 text-white font-bold
+}
+
+.btn-danger{
+    @apply bg-red-500 hover:bg-red-800 border-red-600
+}
+
+.btn-success{
+    @apply bg-green-500 hover:bg-green-800 border-green-600 inline-block transition-all
+}
+
+.btn-primary{
+    @apply bg-blue-500 hover:bg-blue-800 border-blue-600
+}
+
+.btn-warning{
+    @apply bg-yellow-500 hover:bg-yellow-800 border-yellow-600
+}
+
+/***************************** btn */
+
+/** card */
+
+.card{
+    @apply p-6 rounded shadow-sm
+}
+
+.card-white{
+    @apply bg-white
+}
+
+/***************************** card */
