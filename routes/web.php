@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Dashboart\CategoryController;
 use App\Http\Controllers\Dashboart\PostController;
-use App\Http\Middleware\TestMiddleware;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,37 +20,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/test/{id?}/{name?}', function ($id = 10, $name = 'oscar') {
-//     echo $id;
-//     echo $name;
-// });
 
-// Route::controller(PostController::class)->group(function () {
 
-//     Route::get('post', 'index')->name('post.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// });
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
 
-// Route::middleware([TestMiddleware::class])->group(function () {
-//     Route::get('/test/{id?}/{name?}', function ($id = 10, $name = 'oscar') {
-//         echo $id;
-//         echo $name;
-//     });
-// });
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::prefix('dashboard')->group(function () {
     Route::resource('post', PostController::class);
 
     Route::resource('category', CategoryController::class);
 });
 
-
-
-// Route::get('post', [PostController::class, 'index']);
-// Route::get('post/{post}', [PostController::class, 'show']);
-// Route::get('post/{create}', [PostController::class, 'create']);
-// Route::get('post/{post}/edit', [PostController::class, 'edit']);
-
-// Route::pos('post', [PostController::class, 'store']);
-// Route::put('post/{post}', [PostController::class, 'update']);
-// Route::delete('post/{post}', [PostController::class, 'delete']);
+require __DIR__.'/auth.php';
