@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboart\CategoryController;
 use App\Http\Controllers\Dashboart\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\web\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'admin']], function () {
 
     Route::get('/', function () {
         return view('dashboard');
@@ -37,6 +38,20 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
     Route::resource('post', PostController::class);
 
     Route::resource('category', CategoryController::class);
+});
+
+// Route::group(['prefix' => 'blog'])->group(function () {
+//     Route::controller(BlogController::class)->group(function(){
+//         Route::get('/', "index");
+//     });
+// });
+
+Route::group(['prefix' => 'blog'], function () {
+
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/', "index")->name("web.blog.index");
+        Route::get('/{post}', "show")->name("web.blog.show");;
+    });
 });
 
 require __DIR__.'/auth.php';
