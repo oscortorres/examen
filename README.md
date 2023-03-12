@@ -8,3 +8,6 @@
 
 - ejecutar el siguiente seed
   php artisan db:seed
+    se crearan dos usuarios
+      admin@gmail.com   regular@gmail.com
+      misma contraseña: 12345678
