@@ -1,31 +1,44 @@
 <template>
-    <form @submit.prevent="submit">
 
-        <o-field 
-            :variant="errors.login ? 'danger' : 'primary'" 
-            message=""
-            label="Username"
-        >
-            <o-input v-model="form.email">
+    <div class="min-h-screen flex flex-col sm:justify-center items-center bg-green-50">
 
-            </o-input>
+        <div class="w-full sm:max-w-md mt-6 px-6 py-6 bg-white shadow-md overflow-hidden sm:rounded-md" >
 
-        </o-field>
+            <form @submit.prevent="submit">
 
-        <o-field 
-            :variant="errors.login ? 'danger' : 'primary'" 
-            :message="errors.login"
-            label="Password"
-        >
-            <o-input v-model="form.password" type="password">
+                <h2 class="mt-3 mb-6 text-center text-3xl tracking-tight font-bold text-gray-700">
+                    Login
+                </h2>
 
-            </o-input>
+                <o-field 
+                    :variant="errors.login ? 'danger' : 'primary'" 
+                    message=""
+                    label="Username"
+                >
+                    <o-input v-model="form.email">
 
-        </o-field>
+                    </o-input>
 
-        <o-button native-type="submit" variant="primary">Enviar</o-button>
+                </o-field>
 
-    </form>
+                <o-field 
+                    :variant="errors.login ? 'danger' : 'primary'" 
+                    :message="errors.login"
+                    label="Password"
+                >
+                    <o-input v-model="form.password" type="password">
+
+                    </o-input>
+
+                </o-field>
+
+                <o-button class="float-right" native-type="submit" variant="primary">Enviar</o-button>
+
+            </form>
+
+        </div>
+
+    </div>
 </template>
 
 <script>

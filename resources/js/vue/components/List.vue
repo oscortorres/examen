@@ -15,6 +15,8 @@
             
         </o-modal>
 
+        <div class="container mx-auto">
+
         <h1>Listado de Posts</h1>
 
         <o-button iconLeft="plus" @click="$router.push({name:'save'})">Crear</o-button>
@@ -76,6 +78,8 @@
             :per-page="posts.per_page"
         >
         </o-pagination>
+
+        </div>
 
     </div>
 </template>

@@ -1,23 +1,30 @@
 <template>
     <div>     
 
-        <header>
-            <div class="flex gap-3 bg-gray-200">
+        <nav class="bg-white border-b border-gray-50">
 
-                <router-link v-if="!$root.isLoggedIn" :to="{name: 'login'}">Login</router-link>
-               
+            <header class="max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex gap-3 bg-gray-200">
 
-                <o-button v-if="$root.isLoggedIn" variant="danger" @click="logout">
-                    Logout
-                </o-button>
+                    <router-link v-if="!$root.isLoggedIn" :to="{name: 'login'}">Login</router-link>
+                
 
-                <p v-if="$root.isLoggedIn">
-                    {{$root.user.name}}
-                </p>
+                    <o-button v-if="$root.isLoggedIn" variant="danger" @click="logout">
+                        Logout
+                    </o-button>
 
-            </div>            
-        </header>   
+                    <p v-if="$root.isLoggedIn">
+                        {{$root.user.name}}
+                    </p>
+
+                </div>
+                            
+            </header>   
+
+        </nav>
+
         
+
         <router-view></router-view>
 
     </div>
