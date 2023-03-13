@@ -1,8 +1,25 @@
 <template>
     <div>
+
+        <o-modal v-model:active="confirmDeleteActive">
+
+            <div class="p-4">
+                <p>¿Seguro de eliminar?</p>
+            </div>
+
+            <div class="flex flex-row-reverse gap-2 bg-gray-400 p-3">
+                <o-button variant="danger" @click="deletePost()">Eliminar</o-button>
+                <o-button @click="confirmDeleteActive=false">Cancelar</o-button>                
+            </div>   
+
+            
+        </o-modal>
+
         <h1>Listado de Posts</h1>
 
-        <router-link :to="{name:'save'}">Crear</router-link>
+        <o-button iconLeft="plus" @click="$router.push({name:'save'})">Crear</o-button>
+
+        <div class="mb-5"></div>
 
         <o-table :loading="isLoading" :data="posts.current_page && posts.data.length == 0 ? [] : posts.data">
 
@@ -27,7 +44,18 @@
             </o-table-column>
 
             <o-table-column field="Slug" label="Acciones" v-slot="p">
-                <router-link :to="{name:'save', params:{'slug': p.row.slug}}">Editar</router-link>
+                
+                <router-link class="mr-3" :to="{name:'save', params:{'slug': p.row.slug}}">Editar</router-link>
+                
+                <o-button 
+                    iconLeft="delete" 
+                    size="small" 
+                    variant="danger" 
+                    @click="deletePostRow=p; confirmDeleteActive=true "
+                >
+                    Eliminar
+                </o-button>
+
             </o-table-column>
 
         </o-table>
@@ -59,7 +87,9 @@ export default {
         return{
             posts: [],
             isLoading: true,
-            currentPage: 1
+            currentPage: 1,
+            confirmDeleteActive: false,
+            deletePostRow: ''
         }
     },
 
@@ -81,11 +111,31 @@ export default {
 
                 this.isLoading = false
             })
+        },
+        deletePost(){
+
+            this.confirmDeleteActive = false
+
+            this.posts.data.splice(this.deletePostRow.index, 1)
+
+            // console.log(row)
+
+            // console.log(this.posts)
+
+            this.$axios.delete('/api/posts/'+this.deletePostRow.row.id).then((res) => {
+                //oruga mesage 
+                this.$oruga.notification.open({
+                    message: 'Registro eliminado',
+                    variant: 'danger',
+                    duration: 4000,
+                    closable: true
+                })
+            })
         }
     },
 
     async mounted(){
-        this.listPage()
+        this.listPage()       
     }
 }
 </script>

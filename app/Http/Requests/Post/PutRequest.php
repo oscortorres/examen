@@ -42,7 +42,7 @@ class PutRequest extends FormRequest
         // dd($this->route("post"));
         return [
             "name" => "required|min:5|max:255",
-            "slug" => "required|min:5|max:255|unique:posts,slug,".$this->route("post")->id,
+            "slug" => "min:5|max:255|unique:posts,slug,".$this->route("post")->id,
             "category_id" => "required|integer",
             "posted" => "required",
             "comment" => "required|min:5|max:500"  
