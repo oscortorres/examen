@@ -12,6 +12,7 @@ import '@oruga-ui/oruga-next/dist/oruga-full-vars.css'
 // material
 import '@mdi/font/css/materialdesignicons.min.css'
 
+//axios 
 import axios from 'axios';
 
 // cookie
