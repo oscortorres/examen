@@ -14,10 +14,13 @@ import '@mdi/font/css/materialdesignicons.min.css'
 
 import axios from 'axios';
 
+// cookie
+import VueCookies from 'vue3-cookies'
+
 import App from './App.vue';
 import router from './router';
 
-const app = createApp(App).use(Oruga).use(router)
+const app = createApp(App).use(Oruga).use(router).use(VueCookies)
 
 app.config.globalProperties.$axios = axios
 window.axios = axios

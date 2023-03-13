@@ -74,14 +74,17 @@ export default {
       submit(){
         // console.log(this.form)
 
+        const config = {
+          // headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}`}
+          headers: { Authorization: "Bearer " + this.$root.token}
+        }
+
         this.cleanErrorsForm()
 
         if (this.post == '')         
         
         //! insert
-        return this.$axios.post('/api/posts',
-
-          this.form
+        return this.$axios.post('/api/posts',this.form, config
         
         ).then(res => {
 
@@ -117,7 +120,7 @@ export default {
         //! update
         this.$axios.patch('/api/posts/'+ this.post.id,
 
-          this.form
+          this.form, config
         
         ).then(res => {
 
@@ -153,14 +156,25 @@ export default {
       },
 
       getCategory(){
-        this.$axios.get('/api/category/all').then((res) => {
+
+        const config = {
+          // headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}`}
+          headers: { Authorization: "Bearer " + this.$root.token}
+        }
+
+        this.$axios.get('/api/category/all', config).then((res) => {
           this.categories = res.data
                 
         })
       },
 
       async getPost(){
-        this.post = await this.$axios.get('/api/posts/slug/'+ this.$route.params.slug);
+        const config = {
+          // headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}`}
+          headers: { Authorization: "Bearer " + this.$root.token}
+        }
+
+        this.post = await this.$axios.get('/api/posts/slug/'+ this.$route.params.slug, config);
         this.post = this.post.data
       },
 

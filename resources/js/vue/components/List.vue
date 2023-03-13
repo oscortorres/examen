@@ -100,11 +100,16 @@ export default {
         },
 
         listPage(){
-            console.log('click' + this.currentPage)
+            // console.log('click' + this.currentPage)
+
+            const config = {
+                // headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}`}
+                headers: { Authorization: "Bearer " + this.$root.token}
+            }
 
             this.isLoading = true 
             
-            this.$axios.get('/api/posts?page='+this.currentPage).then((res) => {
+            this.$axios.get('/api/posts?page='+this.currentPage, config).then((res) => {
                 this.posts = res.data
 
                 console.log(this.posts)
@@ -118,11 +123,16 @@ export default {
 
             this.posts.data.splice(this.deletePostRow.index, 1)
 
+            const config = {
+                // headers: { Authorization: `Bearer ${this.$cookies.get('auth').token}`}
+                headers: { Authorization: "Bearer " + this.$root.token}
+            }
+
             // console.log(row)
 
             // console.log(this.posts)
 
-            this.$axios.delete('/api/posts/'+this.deletePostRow.row.id).then((res) => {
+            this.$axios.delete('/api/posts/'+this.deletePostRow.row.id, config).then((res) => {
                 //oruga mesage 
                 this.$oruga.notification.open({
                     message: 'Registro eliminado',
@@ -135,6 +145,9 @@ export default {
     },
 
     async mounted(){
+
+        // console.log(this.$cookies.get('auth'))
+
         this.listPage()       
     }
 }
